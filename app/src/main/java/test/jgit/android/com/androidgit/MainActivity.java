@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         File localPath = new File(Environment.getExternalStorageDirectory() + File.separator + "TestGitRepository");
         boolean success = true;
         if (!localPath.exists()) {
-            Log.e(TAG, "create folder");
+            Log.d(TAG, "create folder");
             success = localPath.mkdir();
         }
         if (success) {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Error to open remote repository");
             }
         } else {
-            Log.e(TAG, "error to create local repository dir:" + localPath.getAbsolutePath());
+            Log.e(TAG, "Error to create local repository dir:" + localPath.getAbsolutePath());
         }
     }
 }
