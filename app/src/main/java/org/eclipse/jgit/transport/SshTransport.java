@@ -47,6 +47,7 @@
 
 package org.eclipse.jgit.transport;
 
+import org.eclipse.jgit.errors.NotSupportedException;
 import org.eclipse.jgit.errors.TransportException;
 import org.eclipse.jgit.internal.JGitText;
 import org.eclipse.jgit.lib.Repository;
@@ -91,6 +92,11 @@ public abstract class SshTransport extends TcpTransport {
 	protected SshTransport(URIish uri) {
 		super(uri);
 		sch = SshSessionFactory.getInstance();
+	}
+
+	@Override
+	public FetchConnection openFetch() throws NotSupportedException, TransportException {
+		return null;
 	}
 
 	/**

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 23
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "test.jgit.android.com.androidgit"
@@ -23,7 +23,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:23.2.0'
     compile files('libs/JavaEWAH-0.7.9.jar')
     compile files('libs/jsch-0.1.54.jar')
     compile files('libs/commons-codec-1.4.jar')

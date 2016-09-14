@@ -319,7 +319,7 @@ abstract class WalkEncryption {
 		String DEFAULT_KEY_SIZE = Integer.toString(JetS3tV2.KEY_SIZE);
 		String DEFAULT_KEY_ITER = Integer.toString(JetS3tV2.ITERATIONS);
 		//String DEFAULT_KEY_SALT = DatatypeConverter.printHexBinary(JetS3tV2.SALT);
-        String DEFAULT_KEY_SALT = android.util.Base64.encodeToString(JetS3tV2.SALT, 16);
+        String DEFAULT_KEY_SALT = android.util.Base64.encodeToString(JetS3tV2.SALT, android.util.Base64.DEFAULT);
 
 		String EMPTY = ""; //$NON-NLS-1$
 

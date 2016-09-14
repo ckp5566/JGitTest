@@ -45,6 +45,8 @@
 
 package org.eclipse.jgit.transport;
 
+import org.eclipse.jgit.errors.NotSupportedException;
+import org.eclipse.jgit.errors.TransportException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.transport.http.HttpConnectionFactory;
 import org.eclipse.jgit.transport.http.JDKHttpConnectionFactory;
@@ -102,5 +104,10 @@ public abstract class HttpTransport extends Transport {
 	 */
 	protected HttpTransport(URIish uri) {
 		super(uri);
+	}
+
+	@Override
+	public FetchConnection openFetch() throws NotSupportedException, TransportException {
+		return null;
 	}
 }
