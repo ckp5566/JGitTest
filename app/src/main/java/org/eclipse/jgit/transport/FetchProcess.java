@@ -347,6 +347,8 @@ class FetchProcess {
 			return false;
 		} catch (IOException e) {
 			throw new TransportException(JGitText.get().unableToCheckConnectivity, e);
+		} catch (Exception e) {
+			return false;
 		}
 	}
 

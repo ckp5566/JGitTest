@@ -140,6 +140,8 @@ public class FetchCommand extends TransportCommand<FetchCommand, FetchResult> {
 			throw new JGitInternalException(
 					JGitText.get().exceptionCaughtDuringExecutionOfFetchCommand,
 					e);
+		} catch (Exception e) {
+			return null;
 		}
 
 	}
