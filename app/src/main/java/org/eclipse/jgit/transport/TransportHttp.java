@@ -559,15 +559,11 @@ public class TransportHttp extends HttpTransport implements WalkTransport,
 			conn.setRequestProperty(HDR_USER_AGENT, UserAgent.get());
 		}
 		int timeOut = getTimeout();
-		if (timeOut > 0) {
+		if (timeOut != -1) {
 			int effTimeOut = timeOut * 1000;
 			conn.setConnectTimeout(effTimeOut);
 			conn.setReadTimeout(effTimeOut);
-		} else {
-            // default timeout
-            conn.setConnectTimeout(10000);
-            conn.setReadTimeout(5000);
-        }
+		}
 		if (this.headers != null && !this.headers.isEmpty()) {
 			for (Map.Entry<String, String> entry : this.headers.entrySet())
 				conn.setRequestProperty(entry.getKey(), entry.getValue());
