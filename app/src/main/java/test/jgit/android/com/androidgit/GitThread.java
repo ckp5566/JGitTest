@@ -4,7 +4,11 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
+import org.eclipse.jgit.api.FetchCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.RebaseCommand;
+import org.eclipse.jgit.api.RebaseResult;
+import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.util.FileUtils;
 
 import java.io.File;
@@ -38,20 +42,39 @@ public class GitThread extends AsyncTask<String, Integer, Boolean> {
             success = localPath.mkdir();
         }
         if (success) {
-            try {
-                Git result = Git.cloneRepository()
-                        .setURI(url)
-                        .setDirectory(localPath)
-                        .call();
-                Log.d(TAG, "Having repository: " + result.getRepository().getDirectory());
-                //result.checkout();
-            }
-            catch (Exception e) {
-                Log.e(TAG, "Error to open remote repository:" + e);
+            File gitPath = new File(localPath.getAbsolutePath() + File.separator + ".git");
+            if (!gitPath.exists()) {
+                // If git repository is not exist, then clone
                 try {
-                    FileUtils.delete(localPath, FileUtils.RECURSIVE);
-                } catch (IOException err){
-                    Log.e(TAG, "Error to delete repository:" + err);
+                    Git result = Git.cloneRepository()
+                            .setURI(url)
+                            .setDirectory(localPath)
+                            .call();
+                    Log.d(TAG, "Having repository: " + result.getRepository().getDirectory());
+                }
+                catch (Exception e) {
+                    Log.e(TAG, "Error to clone remote repository:" + e);
+                }
+            } else {
+                // If git repository is exist already, then sync latest code base
+                try {
+                    Git git = Git.open(localPath);
+                    FetchCommand fetchCmd = git.fetch();
+                    FetchResult fResult = fetchCmd.setRemote("origin").call();
+                    Log.d(TAG, "Fetch result:" + fResult);
+                    RebaseCommand rebaseCmd = git.rebase();
+                    rebaseCmd.setUpstream("refs/heads/master");
+                    RebaseResult rResult = rebaseCmd.call();
+                    // if there are merge conflicts (rebase interactive) - reset the repository
+                    if (!rResult.getStatus().isSuccessful()) {
+                        git.rebase().setOperation(RebaseCommand.Operation.ABORT).call();
+                        Log.e(TAG, "Fail to rebase.");
+                    } else {
+                        Log.d(TAG, "Success to rebase");
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "fail to sync latest codes");
+
                 }
             }
         } else {

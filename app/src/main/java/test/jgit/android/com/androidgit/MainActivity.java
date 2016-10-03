@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String REMOTE_URL = "https://github.com/github/testrepo.git";
+    private static final String REMOTE_URL = "https://github.com/MistLiao/jgitlib.git";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
