@@ -2,7 +2,7 @@
 
 This is a android project that use jgit as library. We create a sample Activity to execute the jgit APIs
 
-ToDo:
-1. update git repository
-2. support ssh
-3. commit and push commit to remote
+# ToDo:
+1. Update git repository
+2. Support ssh
+3. Commit and push commit to remote
